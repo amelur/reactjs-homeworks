@@ -1,0 +1,24 @@
+@use '../../assets/styles/index' as var;
+
+.mediaLink {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  border: 1px solid rgba(126, 130, 143, 0.30);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    filter: brightness(0) saturate(100%) invert(65%) sepia(62%) saturate(417%) hue-rotate(134deg) brightness(84%) contrast(97%);
+  }
+
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  object-fit: cover;
+}

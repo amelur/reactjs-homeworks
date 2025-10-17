@@ -1,0 +1,15 @@
+@use '../../assets/styles/index' as var;
+
+.header__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 120px;
+}
+
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 105px;
+}

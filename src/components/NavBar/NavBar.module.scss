@@ -1,0 +1,31 @@
+@use '../../assets/styles/index' as var;
+
+.nav__list {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.nav__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.nav__link {
+  color: var.$color-nav-item;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  transition: color 0.3s ease-in-out;
+
+  &--active {
+    color: var.$color-active;
+  }
+}
+
+.nav__link:hover {
+  color: var.$color-active;
+}

@@ -1,0 +1,80 @@
+@use '../../assets/styles/index' as var;
+
+.home {
+    background-image: url('./home-bg.png');
+    background-size: cover;
+  }
+
+.home__wrapper {
+  display: flex;
+  padding: 100px 120px 140px;
+}
+
+.content {
+  padding-top: 57px;
+}
+
+.title {
+  width: 100%;
+  max-width: 600px;
+  color: var.$color-dark;
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 60px; /* 100% */
+  letter-spacing: 1.8px;
+  margin-bottom: 27px;
+}
+
+.text {
+  width: 100%;
+  max-width: 539px;
+  color: var.$color-text;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24.12px; /* 134% */
+  letter-spacing: 0.36px;
+  margin-bottom: 53px;
+}
+
+.review {
+  margin-top: 30px;
+}
+
+.review__img {
+  width: 110px;
+  height: 27px;
+  background: url('/review.svg') center / contain no-repeat;
+  margin-bottom: 10px;
+}
+
+.review__text {
+  color: var.$color-dark;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 125% */
+}
+
+.img-wrapper {
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+}
+
+.img__title {
+  position: absolute;
+  right: 68px;
+  bottom: 8px;
+  width: 212px;
+  height: 212px;
+  border-radius: 50%;
+  display: flex;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.img__title:hover {
+  border: 2px solid rgba(53, 184, 190, 0.6);
+}
