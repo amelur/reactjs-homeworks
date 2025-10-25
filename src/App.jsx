@@ -1,14 +1,21 @@
 import Header from "./components/Header";
 import Footer from "./components/Footer/index.js";
-import Home from "./pages/Home/Home";
-
+import Menu from "./pages/Menu/index.js";
+import {useState} from "react";
 
 function App() {
 
+    const [totalMeals, setTotalMeals] = useState(0);
+
+    const handleAddToCart = (count) => {
+        setTotalMeals((prev) => prev + count);
+    };
+
+
     return (
         <>
-            <Header/>
-            <Home phone={'+370-937-99-92'}/>
+            <Header totalMeals={totalMeals}/>
+            <Menu onAddToCart={handleAddToCart}/>
             <Footer/>
         </>
     )

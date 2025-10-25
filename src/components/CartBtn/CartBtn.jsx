@@ -1,9 +1,9 @@
 import styles from "./CartBtn.module.scss";
 
-const CartBtn = ({count}) => {
+const CartBtn = ({totalMeals}) => {
     return (
         <button className={styles.cartBtn}>
-            <span className={styles.cartCount}>{count}</span>
+            <span className={styles.cartCount}>{totalMeals}</span>
         </button>
     )
 }

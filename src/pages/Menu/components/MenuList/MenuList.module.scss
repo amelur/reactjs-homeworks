@@ -1,0 +1,9 @@
+@use '../../../../assets/styles/index' as var;
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
