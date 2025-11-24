@@ -1,7 +1,7 @@
 import styles from './MenuCard.module.scss';
 import {useState} from "react";
-import Button from "../../../../components/Button/Button.jsx";
-import CardInput from "../CardInput/index.js";
+import Button from "../../../../components/Button/index.js";
+import CardInput from "../CardInput/";
 
 const MenuCard = ({id, img, meal, price, instructions, onAddToCart}) => {
     const [cardValue, setCardValue] = useState(1);

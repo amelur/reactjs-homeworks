@@ -1,4 +1,4 @@
-import MenuCard from "../MenuCard/index.js";
+import MenuCard from "../MenuCard/";
 import styles from './MenuList.module.scss';
 
 const MenuList = ({meals, onAddToCart}) => {
