@@ -1,0 +1,33 @@
+@use '../../assets/styles/index' as var;
+
+.input__wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.input__label {
+  color: var.$color-dark;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.6px;
+}
+
+.input {
+  width: 430px;
+  height: 45px;
+  border-radius: 6px;
+  border: 1px solid #DDD;
+  background: #FAFAFA;
+  color: var.$color-dark;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 27px; /* 168.75% */
+  letter-spacing: 0.36px;
+  padding-left: 15px;
+}

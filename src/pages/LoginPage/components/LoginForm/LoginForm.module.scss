@@ -1,0 +1,31 @@
+@use '../../../../assets/styles/index' as var;
+
+.form {
+  width: 100%;
+  max-width: 695px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 37px;
+  margin: 0 auto;
+  padding: 36px 68px 42px;
+  border-radius: 6px;
+  border: 1px solid rgba(53, 184, 190, 0.15);
+  background: var.$color-light;
+}
+
+.inputs__wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 25px
+}
+
+.btns__wrapper {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
