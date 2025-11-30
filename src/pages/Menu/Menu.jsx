@@ -1,7 +1,8 @@
 import styles from './Menu.module.scss';
 import {useEffect, useState} from "react";
-import Button from "../../components/Button/Button.jsx";
-import MenuList from "./components/MenuList/index.js";
+import MenuList from "./components/MenuList/";
+import Button from "../../components/Button/";
+import {useFetch} from "../../hooks/useFetch.jsx";
 
 
 const Menu = ({ onAddToCart }) => {
@@ -15,23 +16,27 @@ const Menu = ({ onAddToCart }) => {
         return data.filter((meal) => meal.category === category);
     };
 
+    const { data, error } = useFetch(
+        "https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals"
+    );
+
     useEffect(() => {
-        fetch("https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals")
-            .then(res => res.json())
-            .then(data => {
-                setMeals(data);
-                const filtered = filterMealsByCategory(selectedCategory, data);
-                setVisibleMeals(filtered.slice(0, ITEMS_PER_PAGE));
-                setStartIndex(ITEMS_PER_PAGE);
-            })
-            .catch(err => console.error("Ошибка загрузки меню:", err));
-    }, []);
+        if (data) {
+            setMeals(data);
+            const filtered = filterMealsByCategory(selectedCategory, data);
+            setVisibleMeals(filtered.slice(0, ITEMS_PER_PAGE));
+            setStartIndex(ITEMS_PER_PAGE);
+        }
+    }, [data, selectedCategory]);
 
     useEffect(() => {
         const filtered = filterMealsByCategory(selectedCategory);
         setVisibleMeals(filtered.slice(0, ITEMS_PER_PAGE));
         setStartIndex(ITEMS_PER_PAGE);
     }, [selectedCategory, meals]);
+
+    if (error) return <div>Ошибка загрузки меню</div>;
+    if (!data) return <div>Загрузка...</div>;
 
     const handleSeeMore = () => {
         const filtered = filterMealsByCategory(selectedCategory);
