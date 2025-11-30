@@ -1,0 +1,39 @@
+@use '../../assets/styles/index' as var;
+
+.cartBtn {
+  position: relative;
+  width: 55px;
+  height: 55px;
+  background-color: var.$color-active;
+  border-radius: 5px;
+  background-image: url('../../assets/images/svg/cart.svg');
+  background-size: auto;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.cartBtn:hover {
+  background-color: #49c0c4;
+}
+
+.cartCount {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 100px;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: var.$color-light;
+  box-shadow: 7px 7px 25px 0 rgba(126, 130, 143, 0.27);
+  color: var.$color-active;
+  text-align: center;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; /* 138.462% */
+}
