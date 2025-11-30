@@ -2,6 +2,7 @@ import styles from "./Footer.module.scss";
 import MediaLink from "../MediaLink/index.js";
 
 const Footer = () => {
+
     return (
         <footer className={styles.footer}>
             <div className={`wrapper ${styles.footer__wrapper}`}>
@@ -20,10 +21,15 @@ const Footer = () => {
                     </div>
                     <div className={styles.container}>
                         <p className={styles.title}>TEMPLATE</p>
-                        <p className={styles.container__text}>Style Guide</p>
-                        <p className={styles.container__text}>Changelog</p>
-                        <p className={styles.container__text}>Licence</p>
-                        <p className={styles.container__text}>Webflow University</p>
+                        <p className={styles.container__text}><a href="https://www.google.com/" target="_blank">Style
+                            Guide</a></p>
+                        <p className={styles.container__text}><a href="https://www.google.com/"
+                                                                 target="_blank">Changelog</a></p>
+                        <p className={styles.container__text}><a href="https://www.google.com/"
+                                                                 target="_blank">Licence</a></p>
+                        <p className={styles.container__text}><a href="https://www.google.com/" target="_blank">Webflow
+                            University</a>
+                        </p>
                     </div>
                     <div className={styles.container}>
                         <p className={styles.title}>FLOWBASE</p>

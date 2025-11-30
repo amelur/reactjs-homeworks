@@ -4,7 +4,7 @@ import styles from "./NavBar.module.scss";
 const renderNavItems = (items) => {
     return items.map((item, index) => (
         <li key={index} className={styles.nav__item}>
-            <a href="#" className={`${styles.nav__link} ${index === 0 ? styles['nav__link--active'] : ""}`}>{item}</a>
+            <a href="#" className={`${styles.nav__link} ${index === 1 ? styles['nav__link--active'] : ""}`}>{item}</a>
         </li>
     ));
 }
