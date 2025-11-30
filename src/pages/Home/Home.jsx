@@ -1,7 +1,8 @@
 import styles from './Home.module.scss';
-import Button from "../../components/Button/Button.jsx";
+import Button from "../../components/Button/";
 
 const Home = ({phone}) => {
+
     return (
         <main>
             <section className={styles.home}>
