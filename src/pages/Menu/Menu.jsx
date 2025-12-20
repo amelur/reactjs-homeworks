@@ -3,6 +3,8 @@ import {useEffect, useState} from "react";
 import MenuList from "./components/MenuList/";
 import Button from "../../components/Button/";
 import {useFetch} from "../../hooks/useFetch.jsx";
+import {useDispatch} from "react-redux";
+import {addToCart} from "../../store/cartSlice";
 
 
 const filterMealsByCategory = (category, data) => {
@@ -10,16 +12,17 @@ const filterMealsByCategory = (category, data) => {
 };
 
 
-const Menu = ({onAddToCart}) => {
+const Menu = () => {
     const ITEMS_PER_PAGE = 6;
     const [visibleMeals, setVisibleMeals] = useState([]);
     const [startIndex, setStartIndex] = useState(ITEMS_PER_PAGE);
     const [selectedCategory, setSelectedCategory] = useState("Dessert")
 
-
     const {data, error} = useFetch(
         "https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals"
     );
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (!data) return;
@@ -28,20 +31,23 @@ const Menu = ({onAddToCart}) => {
         setStartIndex(ITEMS_PER_PAGE);
     }, [data, selectedCategory]);
 
-    if (error) return <div>Ошибка загрузки меню</div>;
-    if (!data) return <div>Загрузка...</div>;
+    if (error) return <div>Error</div>;
+    if (!data) return <div>Loading</div>;
+
+    const filtered = filterMealsByCategory(selectedCategory, data);
 
     const handleSeeMore = () => {
-        const filtered = filterMealsByCategory(selectedCategory, data);
         const nextIndex = startIndex + ITEMS_PER_PAGE;
         const nextMeals = filtered.slice(startIndex, nextIndex);
         setVisibleMeals((prev) => [...prev, ...nextMeals]);
         setStartIndex(nextIndex);
     };
 
-    const filtered = filterMealsByCategory(selectedCategory, data);
-    const isAllShown = visibleMeals.length >= filtered.length;
+    const handleAddToCart = (count) => {
+        dispatch(addToCart(count));
+    };
 
+    const isAllShown = visibleMeals.length >= filtered.length;
 
     return (
         <main>
@@ -55,7 +61,7 @@ const Menu = ({onAddToCart}) => {
                             place a pickup order. Fast and fresh food.</p>
                     </div>
                     <div className={styles['btns-wrapper']}>
-                        {["Dessert", "Dinner", "Breakfast"].map((category) => (
+                        {[...new Set(data.map(item => item.category))].map((category) => (
                             <Button
                                 key={category}
                                 text={category}
@@ -65,7 +71,7 @@ const Menu = ({onAddToCart}) => {
                             />
                         ))}
                     </div>
-                    <MenuList meals={visibleMeals} onAddToCart={onAddToCart}/>
+                    <MenuList meals={visibleMeals} onAddToCart={handleAddToCart}/>
                     {!isAllShown && (
                         <Button text="See more" size="medium" onClick={handleSeeMore}/>
                     )}

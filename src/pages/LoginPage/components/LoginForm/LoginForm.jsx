@@ -5,6 +5,8 @@ import {auth} from "../../../../firebase";
 import Button from "../../../../components/Button/index.js";
 import InputField from "../../../../components/InputField/index.js";
 import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {login} from "../../../../store/authSlice";
 
 const LoginForm = () => {
     const [username, setUsername] = useState("UserName");
@@ -12,15 +14,18 @@ const LoginForm = () => {
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
+    const dispatch = useDispatch();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const email = `${username}@example.com`;
             await signInWithEmailAndPassword(auth, email, password);
+
+            dispatch(login());
             navigate("/order");
         } catch (err) {
-            setError("Неверный username или пароль");
+            setError(`${err}:"Неверный username или пароль`);
         }
     };
 

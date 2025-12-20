@@ -2,16 +2,19 @@ import styles from './MenuCard.module.scss';
 import {useState} from "react";
 import Button from "../../../../components/Button/index.js";
 import CardInput from "../CardInput/";
+import {useDispatch} from "react-redux";
+import {addToCart} from "../../../../store/cartSlice";
 
-const MenuCard = ({id, img, meal, price, instructions, onAddToCart}) => {
+const MenuCard = ({id, img, meal, price, instructions}) => {
     const [cardValue, setCardValue] = useState(1);
+    const dispatch = useDispatch();
 
     const shortText = instructions.length > 120
         ? instructions.slice(0, 120) + "..."
         : instructions;
 
     const handleAddToCart = () => {
-        onAddToCart(cardValue);
+        dispatch(addToCart({id, quantity: cardValue}));
         setCardValue(1);
     }
 
