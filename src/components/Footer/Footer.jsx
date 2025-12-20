@@ -1,5 +1,5 @@
 import styles from "./Footer.module.scss";
-import MediaLink from "../MediaLink/index.js";
+import MediaLink from "../MediaLink/";
 
 const Footer = () => {
 
