@@ -1,19 +1,26 @@
 import styles from "./OrderPage.module.scss";
 import {useDispatch, useSelector} from "react-redux";
-import {useFetch} from "../../hooks/useFetch.jsx";
+import { useEffect } from "react";
 import OrderItem from "./components/OrderItem";
 import InputField from "../../components/InputField/index.js";
 import Button from "../../components/Button/index.js";
 import {clearCart} from "../../store/cartSlice.js";
+import {getMealsData} from "../../store/mealsSlice.js";
 
 
 const OrderPage = () => {
+    const dispatch = useDispatch();
     const cartItems = useSelector(state => state.cart.items);
-    const {data: menuData, loading, error} = useFetch(
-        "https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals"
+
+    const { data: menuData, loading, error } = useSelector(
+        (state) => state.meals
     );
 
-    const dispatch = useDispatch();
+    useEffect(() => {
+        if (!menuData) {
+            dispatch(getMealsData());
+        }
+    }, [dispatch, menuData]);
 
     const handleOrder = () => {
         dispatch(clearCart());

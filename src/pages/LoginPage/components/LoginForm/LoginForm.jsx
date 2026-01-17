@@ -25,7 +25,7 @@ const LoginForm = () => {
             dispatch(login());
             navigate("/order");
         } catch (err) {
-            setError(`${err}:"Неверный username или пароль`);
+            setError(`Неверный username или пароль`);
         }
     };
 

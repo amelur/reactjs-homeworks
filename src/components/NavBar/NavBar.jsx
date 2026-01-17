@@ -1,8 +1,8 @@
 import styles from "./NavBar.module.scss";
-import {NavLink, useNavigate} from "react-router-dom";
-import {useAuthState} from "react-firebase-hooks/auth";
-import {auth} from "../../firebase";
-import {signOut} from "firebase/auth";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase";
+import { signOut } from "firebase/auth";
 
 const NavBar = () => {
     const [user] = useAuthState(auth);
@@ -11,27 +11,23 @@ const NavBar = () => {
     const handleSignOut = async () => {
         try {
             await signOut(auth);
-            navigate("/");
+            navigate("/", { replace: true });
         } catch (error) {
             console.error("Error signing out:", error);
         }
     };
 
-    const navItems = ['Home', 'Menu', 'Company'];
+    const navItems = ["Home", "Menu", "Company"];
 
     return (
         <nav className={styles.nav}>
             <ul className={styles.nav__list}>
-                {navItems.map((item, index) => {
-                    const path = item.toLowerCase() === "home" ? "/" : `/${item.toLowerCase()}`;
+                {navItems.map((item) => {
+                    const path = item === "Home" ? "/" : `/${item.toLowerCase()}`;
+
                     return (
-                        <li key={index} className={styles.nav__item}>
-                            <NavLink
-                                to={path}
-                                className={({isActive}) =>
-                                    `${styles.nav__link} ${isActive ? styles['nav__link--active'] : ""}`
-                                }
-                            >
+                        <li key={item} className={styles.nav__item}>
+                            <NavLink to={path} className={styles.nav__link} end={item === "Home"}>
                                 {item}
                             </NavLink>
                         </li>
@@ -40,21 +36,16 @@ const NavBar = () => {
 
                 <li className={styles.nav__item}>
                     {user ? (
-                        <span
-                            className={`${styles.nav__link} ${styles.userName}`}
+                        <button
+                            type="button"
+                            className={`${styles.nav__link}`}
                             onClick={handleSignOut}
-                            style={{cursor: "pointer"}}
-                            title="Click to log out"
+                            title="Log out"
                         >
-                            {user.displayName || 'User'}
-                        </span>
+                            {user.displayName || "User"}
+                        </button>
                     ) : (
-                        <NavLink
-                            to="/login"
-                            className={({isActive}) =>
-                                `${styles.nav__link} ${isActive ? styles['nav__link--active'] : ""}`
-                            }
-                        >
+                        <NavLink to="/login" className={styles.nav__link}>
                             Login
                         </NavLink>
                     )}

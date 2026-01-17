@@ -1,14 +1,21 @@
-import styles from './InputField.module.scss';
+import styles from "./InputField.module.scss";
 
-const InputField = ({label, type = "text", value, onChange, required = false, className = ''}) => {
+const InputField = ({
+                        label,
+                        className = "",
+                        ...inputProps
+                    }) => {
     return (
         <div className={`${styles.input__wrapper} ${className}`}>
-            <label className={styles.input__label}>{label}</label>
-            <input className={styles.input}
-                   type={type}
-                   value={value}
-                   onChange={onChange}
-                   required={required}
+            {label && (
+                <label className={styles.input__label}>
+                    {label}
+                </label>
+            )}
+
+            <input
+                className={styles.input}
+                {...inputProps}
             />
         </div>
     );
