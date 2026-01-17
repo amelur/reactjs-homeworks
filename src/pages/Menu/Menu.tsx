@@ -1,26 +1,26 @@
 import styles from "./Menu.module.scss";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {useEffect, useState} from "react";
+import {useAppDispatch, useAppSelector} from '../../store/hooks'
 import MenuList from "./components/MenuList";
 import Button from "../../components/Button";
-import { addToCart } from "../../store/cartSlice";
-import { getMealsData } from "../../store/mealsSlice";
+import type {Meal} from '../../store/mealsSlice'
+import {getMealsData} from "../../store/mealsSlice";
 
 const ITEMS_PER_PAGE = 6;
 
-const filterMealsByCategory = (category, data) =>
+const filterMealsByCategory = (category: string, data: Meal[]): Meal[] =>
     data.filter((item) => item.category === category);
 
 const Menu = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const { data: meals, loading, error } = useSelector(
+    const {data: meals, loading, error} = useAppSelector(
         (state) => state.meals
     );
 
-    const [visibleMeals, setVisibleMeals] = useState([]);
-    const [startIndex, setStartIndex] = useState(ITEMS_PER_PAGE);
-    const [selectedCategory, setSelectedCategory] = useState("Dessert");
+    const [visibleMeals, setVisibleMeals] = useState<Meal[]>([]);
+    const [startIndex, setStartIndex] = useState<number>(ITEMS_PER_PAGE);
+    const [selectedCategory, setSelectedCategory] = useState<string>("Dessert");
 
     useEffect(() => {
         if (!meals && !loading) {
@@ -47,10 +47,6 @@ const Menu = () => {
         const nextMeals = filtered.slice(startIndex, nextIndex);
         setVisibleMeals((prev) => [...prev, ...nextMeals]);
         setStartIndex(nextIndex);
-    };
-
-    const handleAddToCart = (item) => {
-        dispatch(addToCart(item));
     };
 
     const isAllShown = visibleMeals.length >= filtered.length;
@@ -84,10 +80,10 @@ const Menu = () => {
                         ))}
                     </div>
 
-                    <MenuList meals={visibleMeals} onAddToCart={handleAddToCart} />
+                    <MenuList meals={visibleMeals}/>
 
                     {!isAllShown && (
-                        <Button text="See more" size="medium" onClick={handleSeeMore} />
+                        <Button text="See more" size="medium" onClick={handleSeeMore}/>
                     )}
                 </div>
             </section>

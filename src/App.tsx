@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "./store/hooks";
 import { onAuthStateChanged } from "firebase/auth";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -13,10 +13,10 @@ import { auth } from "./firebase";
 import { setUserState, clearUserState } from "./store/authSlice";
 
 function App() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
+        return onAuthStateChanged(auth, (user) => {
             if (user) {
                 dispatch(
                     setUserState({
@@ -24,14 +24,13 @@ function App() {
                         email: user.email,
                         displayName: user.displayName,
                     })
-                );
+                )
             } else {
-                dispatch(clearUserState());
+                dispatch(clearUserState())
             }
-        });
+        })
+    }, [dispatch])
 
-        return unsubscribe;
-    }, [dispatch]);
 
     return (
         <Router>

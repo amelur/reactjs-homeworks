@@ -1,10 +1,10 @@
 import styles from './Home.module.scss';
-import Button from "../../components/Button/";
+import Button from "../../components/Button";
 import {useNavigate} from "react-router-dom";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {auth} from "../../firebase";
 
-const Home = ({phone}) => {
+const Home = () => {
     const navigate = useNavigate();
     const [user] = useAuthState(auth);
 
@@ -36,7 +36,7 @@ const Home = ({phone}) => {
                     </div>
                     <div className={styles['img-wrapper']}>
                         <img src="./home-img.png" alt="home image" className={styles.hero__img}/>
-                        <span className={styles.img__title} title={phone}></span>
+                        <span className={styles.img__title}></span>
                     </div>
                 </div>
             </section>

@@ -1,12 +1,12 @@
 import styles from "./LoginForm.module.scss";
-import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../../firebase";
+import {useState} from "react";
+import {signInWithEmailAndPassword} from "firebase/auth";
+import {auth} from "../../../../firebase";
 import Button from "../../../../components/Button";
 import InputField from "../../../../components/InputField";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setUserState } from "../../../../store/authSlice";
+import {useNavigate} from "react-router-dom";
+import {useAppDispatch} from '../../../../store/hooks'
+import {setUserState} from "../../../../store/authSlice";
 
 const LoginForm = () => {
     const [username, setUsername] = useState("UserName");
@@ -15,9 +15,9 @@ const LoginForm = () => {
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError("");
         setLoading(true);
@@ -41,7 +41,7 @@ const LoginForm = () => {
                 })
             );
 
-            navigate("/order", { replace: true });
+            navigate("/order", {replace: true});
         } catch (err) {
             setError("Неверный username или пароль");
         } finally {

@@ -1,13 +1,21 @@
-import {useDispatch} from "react-redux";
+import {useAppDispatch} from '../../../store/hooks'
 import {addToCart, removeFromCart} from "../../../store/cartSlice";
 import CardInput from "../../Menu/components/CardInput";
 import Button from "../../../components/Button";
 import styles from "./OrderItem.module.scss";
 
-const OrderItem = ({id, img, meal, price, quantity}) => {
-    const dispatch = useDispatch();
+type OrderItemProps = {
+    id: string
+    img: string
+    meal: string
+    price: number
+    quantity: number
+}
 
-    const handleQuantityChange = (newQuantity) => {
+const OrderItem = ({id, img, meal, price, quantity}: OrderItemProps) => {
+    const dispatch = useAppDispatch();
+
+    const handleQuantityChange = (newQuantity: number) => {
         if (newQuantity < 1) return;
         dispatch(addToCart({id, quantity: newQuantity - quantity}));
     };

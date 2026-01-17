@@ -1,6 +1,14 @@
 import styles from "./Button.module.scss";
+import React from 'react'
 
-const Button = ({text, secondary, size, onClick}) => {
+type ButtonProps = {
+    text: string
+    secondary?: boolean
+    size?: 'small' | 'medium' | 'large' | 'remove'
+    onClick?: () => void
+} & React.ButtonHTMLAttributes<HTMLButtonElement>
+
+const Button = ({text, secondary, size, onClick}: ButtonProps) => {
     return (
         <button
             className={`${styles.btn} ${secondary ? styles['btn--secondary'] : ''} ${size ? styles[`btn--${size}`] : ''}`}
