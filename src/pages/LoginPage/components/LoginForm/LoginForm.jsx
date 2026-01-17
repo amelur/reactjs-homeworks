@@ -1,26 +1,51 @@
-import styles from "./LoginForm.module.scss"
-import {useState} from "react";
-import {signInWithEmailAndPassword} from "firebase/auth";
-import {auth} from "../../../../firebase";
-import Button from "../../../../components/Button/index.js";
-import InputField from "../../../../components/InputField/index.js";
-import {useNavigate} from "react-router-dom";
+import styles from "./LoginForm.module.scss";
+import { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../../firebase";
+import Button from "../../../../components/Button";
+import InputField from "../../../../components/InputField";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUserState } from "../../../../store/authSlice";
 
 const LoginForm = () => {
     const [username, setUsername] = useState("UserName");
     const [password, setPassword] = useState("Password");
     const [error, setError] = useState("");
-    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError("");
+        setLoading(true);
+
         try {
             const email = `${username}@example.com`;
-            await signInWithEmailAndPassword(auth, email, password);
-            navigate("/order");
+
+            const userCredential = await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+            const user = userCredential.user;
+
+            dispatch(
+                setUserState({
+                    uid: user.uid,
+                    email: user.email,
+                    displayName: user.displayName,
+                })
+            );
+
+            navigate("/order", { replace: true });
         } catch (err) {
             setError("Неверный username или пароль");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -31,19 +56,45 @@ const LoginForm = () => {
     };
 
     return (
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <form className={styles.form} onSubmit={handleSubmit} noValidate>
             <div className={styles.inputs__wrapper}>
-                <InputField label='User name' value={username} onChange={(e) => setUsername(e.target.value)}/>
-                <InputField label='Password' type='password' value={password}
-                            onChange={(e) => setPassword(e.target.value)}/>
+                <InputField
+                    label="User name"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                />
+
+                <InputField
+                    label="Password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
             </div>
-            {error && <p style={{color: "red"}}>{error}</p>}
+
+            {error && <p className={styles.error}>{error}</p>}
+
             <div className={styles.btns__wrapper}>
-                <Button text={'Submit'} size={'small'} type="submit"/>
-                <Button text={'Cancel'} size={'small'} secondary onClick={handleCancel}/>
+                <Button
+                    text={loading ? "Loading..." : "Submit"}
+                    size="small"
+                    type="submit"
+                    disabled={loading}
+                />
+
+                <Button
+                    text="Cancel"
+                    size="small"
+                    secondary
+                    type="button"
+                    onClick={handleCancel}
+                    disabled={loading}
+                />
             </div>
         </form>
-    )
-}
+    );
+};
 
 export default LoginForm;

@@ -1,37 +1,65 @@
 import styles from "./NavBar.module.scss";
-import {NavLink} from "react-router-dom";
-
-
-const renderNavItems = (items) => {
-    return items.map((item, index) => {
-        const path = item.toLowerCase() === "home" ? "/" : `/${item.toLowerCase()}`;
-
-        return (
-            <li key={index} className={styles.nav__item}>
-                <NavLink
-                    to={path}
-                    className={({isActive}) =>
-                        `${styles.nav__link} ${isActive ? styles['nav__link--active'] : ""}`
-                    }
-                >
-                    {item}
-                </NavLink>
-            </li>
-        );
-    });
-};
+import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
+import { clearUserState } from "../../store/authSlice";
 
 const NavBar = () => {
-    const navItems = ['Home', 'Menu', 'Company', 'Login']
+    const user = useSelector((state) => state.auth.user);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleSignOut = async () => {
+        try {
+            await signOut(auth);
+            dispatch(clearUserState());
+            navigate("/", { replace: true });
+        } catch (error) {
+            console.error("Error signing out:", error);
+        }
+    };
+
+    const navItems = ["Home", "Menu", "Company"];
+
     return (
         <nav className={styles.nav}>
             <ul className={styles.nav__list}>
-                {renderNavItems(navItems)}
+                {navItems.map((item) => {
+                    const path = item === "Home" ? "/" : `/${item.toLowerCase()}`;
+
+                    return (
+                        <li key={item} className={styles.nav__item}>
+                            <NavLink
+                                to={path}
+                                className={styles.nav__link}
+                                end={item === "Home"}
+                            >
+                                {item}
+                            </NavLink>
+                        </li>
+                    );
+                })}
+
+                <li className={styles.nav__item}>
+                    {user ? (
+                        <button
+                            type="button"
+                            className={styles.nav__link}
+                            onClick={handleSignOut}
+                            title="Log out"
+                        >
+                            {user.displayName || "User"}
+                        </button>
+                    ) : (
+                        <NavLink to="/login" className={styles.nav__link}>
+                            Login
+                        </NavLink>
+                    )}
+                </li>
             </ul>
         </nav>
     );
-}
+};
 
 export default NavBar;
-
-
