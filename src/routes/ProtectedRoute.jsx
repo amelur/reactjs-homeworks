@@ -1,12 +1,12 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase";
+import { useSelector } from "react-redux";
 
 const ProtectedRoute = () => {
-    const [user, loading] = useAuthState(auth);
+    const user = useSelector((state) => state.auth.user);
 
-    if (loading) return <p>Loading...</p>;
-    if (!user) return <Navigate to="/login" replace />;
+    if (!user) {
+        return <Navigate to="/login" replace />;
+    }
 
     return <Outlet />;
 };

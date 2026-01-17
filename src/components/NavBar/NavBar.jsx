@@ -1,16 +1,19 @@
 import styles from "./NavBar.module.scss";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase";
+import { useSelector, useDispatch } from "react-redux";
 import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
+import { clearUserState } from "../../store/authSlice";
 
 const NavBar = () => {
-    const [user] = useAuthState(auth);
+    const user = useSelector((state) => state.auth.user);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleSignOut = async () => {
         try {
             await signOut(auth);
+            dispatch(clearUserState());
             navigate("/", { replace: true });
         } catch (error) {
             console.error("Error signing out:", error);
@@ -27,7 +30,11 @@ const NavBar = () => {
 
                     return (
                         <li key={item} className={styles.nav__item}>
-                            <NavLink to={path} className={styles.nav__link} end={item === "Home"}>
+                            <NavLink
+                                to={path}
+                                className={styles.nav__link}
+                                end={item === "Home"}
+                            >
                                 {item}
                             </NavLink>
                         </li>
@@ -38,7 +45,7 @@ const NavBar = () => {
                     {user ? (
                         <button
                             type="button"
-                            className={`${styles.nav__link}`}
+                            className={styles.nav__link}
                             onClick={handleSignOut}
                             title="Log out"
                         >
