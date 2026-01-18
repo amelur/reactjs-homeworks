@@ -36,7 +36,6 @@ const Home = () => {
                     </div>
                     <div className={styles['img-wrapper']}>
                         <img src="./home-img.png" alt="home image" className={styles.hero__img}/>
-                        <span className={styles.img__title}></span>
                     </div>
                 </div>
             </section>

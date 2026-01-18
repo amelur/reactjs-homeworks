@@ -1,7 +1,4 @@
-@use '../../assets/styles/index' as var;
-
 .menu {
-  background-image: url('./menuBG.svg');
   background-size: cover;
 }
 
@@ -22,22 +19,12 @@
 }
 
 .title {
-  color: var.$color-active;
+  color: var(--color-active);
   text-align: center;
   font-size: 50px;
-  font-style: normal;
   font-weight: 400;
-  line-height: 55px; /* 110% */
+  line-height: 55px;
   letter-spacing: 1.65px;
-}
-
-.phone {
-  color: var.$color-active;
-  transition: color 0.3s ease-in-out;
-
-  &:hover {
-    color: #5fc4d0;
-  }
 }
 
 .description__text {
@@ -45,17 +32,24 @@
   max-width: 466px;
   text-align: center;
   font-size: 16px;
-  font-style: normal;
   font-weight: 400;
-  line-height: 27px; /* 168.75% */
+  line-height: 27px;
   letter-spacing: 0.36px;
+  color: var(--color-text-secondary);
+}
+
+.phone {
+  color: var(--color-active);
+  transition: color 0.3s ease-in-out;
+
+  &:hover {
+    color: var(--color-active);
+    opacity: 0.8;
+  }
 }
 
 .btns-wrapper {
   display: flex;
   justify-content: center;
   gap: 30px;
-
 }
-
-

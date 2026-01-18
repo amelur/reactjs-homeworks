@@ -1,0 +1,54 @@
+.themeToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.label {
+  font-size: 13px;
+  letter-spacing: 0.4px;
+  color: var(--color-text);
+}
+
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  padding: 6px 28px 6px 12px;
+  font-size: 14px;
+  font-family: inherit;
+
+  color: var(--color-text);
+  background-color: var(--color-bg);
+
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='currentColor' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+
+  transition: border-color 0.2s ease,
+  box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: var(--color-active);
+  }
+
+  &:focus-visible {
+    outline: none;
+    border-color: var(--color-active);
+    box-shadow: 0 0 0 2px rgba(53, 184, 190, 0.25);
+  }
+}
+
+.select option {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+

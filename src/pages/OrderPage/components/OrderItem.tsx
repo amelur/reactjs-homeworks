@@ -3,14 +3,10 @@ import {addToCart, removeFromCart} from "../../../store/cartSlice";
 import CardInput from "../../Menu/components/CardInput";
 import Button from "../../../components/Button";
 import styles from "./OrderItem.module.scss";
+import {type DetailedCartItem} from "../OrderPage"
 
-type OrderItemProps = {
-    id: string
-    img: string
-    meal: string
-    price: number
-    quantity: number
-}
+type OrderItemProps = DetailedCartItem
+
 
 const OrderItem = ({id, img, meal, price, quantity}: OrderItemProps) => {
     const dispatch = useAppDispatch();
