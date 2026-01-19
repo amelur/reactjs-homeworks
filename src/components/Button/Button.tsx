@@ -5,14 +5,13 @@ type ButtonProps = {
     text: string
     secondary?: boolean
     size?: 'small' | 'medium' | 'large' | 'remove'
-    onClick?: () => void
 } & React.ButtonHTMLAttributes<HTMLButtonElement>
 
-const Button = ({text, secondary, size, onClick}: ButtonProps) => {
+const Button = ({text, secondary, size, ...rest}: ButtonProps) => {
     return (
         <button
             className={`${styles.btn} ${secondary ? styles['btn--secondary'] : ''} ${size ? styles[`btn--${size}`] : ''}`}
-            onClick={onClick}
+            {...rest}
         >
             {text}
         </button>

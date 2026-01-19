@@ -19,8 +19,8 @@ const Menu = () => {
     );
 
     const [visibleMeals, setVisibleMeals] = useState<Meal[]>([]);
-    const [startIndex, setStartIndex] = useState<number>(ITEMS_PER_PAGE);
-    const [selectedCategory, setSelectedCategory] = useState<string>("Dessert");
+    const [startIndex, setStartIndex] = useState(ITEMS_PER_PAGE);
+    const [selectedCategory, setSelectedCategory] = useState("Dessert");
 
     useEffect(() => {
         if (!meals && !loading) {

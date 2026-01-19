@@ -4,6 +4,8 @@ import CartBtn from "../CartBtn/CartBtn";
 import {Link} from "react-router-dom";
 import {useAppSelector} from "../../store/hooks";
 import {totalMealsSelector} from "../../store/cartSelectors";
+import ThemeToggle from '../ThemeToggle/ThemeToggle'
+
 
 export default function Header() {
     const totalMeals = useAppSelector(totalMealsSelector);
@@ -16,6 +18,7 @@ export default function Header() {
                 <div className={styles.container}>
                     <NavBar/>
                     <CartBtn totalMeals={totalMeals}/>
+                    <ThemeToggle/>
                 </div>
             </div>
         </header>
