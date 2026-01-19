@@ -1,20 +1,20 @@
 import styles from "./NavBar.module.scss";
-import { NavLink, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { signOut } from "firebase/auth";
-import { auth } from "../../firebase";
-import { clearUserState } from "../../store/authSlice";
+import {NavLink, useNavigate} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../../store/hooks";
+import {signOut} from "firebase/auth";
+import {auth} from "../../firebase";
+import {clearUserState} from "../../store/authSlice";
 
 const NavBar = () => {
-    const user = useSelector((state) => state.auth.user);
-    const dispatch = useDispatch();
+    const user = useAppSelector((state) => state.auth.user);
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const handleSignOut = async () => {
         try {
             await signOut(auth);
             dispatch(clearUserState());
-            navigate("/", { replace: true });
+            navigate("/", {replace: true});
         } catch (error) {
             console.error("Error signing out:", error);
         }

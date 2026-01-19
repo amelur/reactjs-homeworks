@@ -1,18 +1,25 @@
 import styles from "./OrderPage.module.scss";
-import {useDispatch, useSelector} from "react-redux";
-import { useEffect } from "react";
+import {useAppDispatch, useAppSelector} from '../../store/hooks'
+import {useEffect} from "react";
 import OrderItem from "./components/OrderItem";
-import InputField from "../../components/InputField/index.js";
-import Button from "../../components/Button/index.js";
-import {clearCart} from "../../store/cartSlice.js";
-import {getMealsData} from "../../store/mealsSlice.js";
+import InputField from "../../components/InputField";
+import Button from "../../components/Button";
+import {clearCart} from "../../store/cartSlice";
+import {getMealsData} from "../../store/mealsSlice";
 
+type DetailedCartItem = {
+    id: string
+    quantity: number
+    meal: string
+    price: number
+    img: string
+}
 
 const OrderPage = () => {
-    const dispatch = useDispatch();
-    const cartItems = useSelector(state => state.cart.items);
+    const dispatch = useAppDispatch();
+    const cartItems = useAppSelector(state => state.cart.items);
 
-    const { data: menuData, loading, error } = useSelector(
+    const {data: menuData, loading, error} = useAppSelector(
         (state) => state.meals
     );
 
@@ -30,13 +37,20 @@ const OrderPage = () => {
     if (error) return <p>Error fetching meals</p>;
     if (!menuData) return <p>Loading menu...</p>;
 
-    const detailedCart = cartItems
+    const detailedCart: DetailedCartItem[] = cartItems
         .map(item => {
-            const meal = menuData.find(m => m.id === item.id);
-            if (!meal) return null;
-            return {...item, meal: meal.meal, price: meal.price, img: meal.img};
+            const meal = menuData.find(m => m.id === item.id)
+            if (!meal) return null
+
+            return {
+                id: item.id,
+                quantity: item.quantity,
+                meal: meal.meal,
+                price: meal.price,
+                img: meal.img,
+            }
         })
-        .filter(Boolean);
+        .filter((item): item is DetailedCartItem => item !== null)
 
 
     return (

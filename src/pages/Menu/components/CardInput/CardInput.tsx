@@ -1,7 +1,13 @@
 import styles from './CardInput.module.scss';
 
-const CardInput = ({value = 1, min = 1, onChange}) => {
+type CardInputProps = {
+    value: number
+    min?: number
+    onChange: (value: number) => void
+}
 
+
+const CardInput = ({value = 1, min = 1, onChange}: CardInputProps) => {
 
     return (
         <input
