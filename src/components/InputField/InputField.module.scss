@@ -1,17 +1,13 @@
-@use '../../assets/styles/index' as var;
-
 .input__wrapper {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
 }
 
 .input__label {
-  color: var.$color-dark;
+  color: var(--color-text-primary);
   font-size: 18px;
-  font-style: normal;
   font-weight: 400;
   line-height: 20px;
   letter-spacing: 0.6px;
@@ -21,13 +17,18 @@
   width: 430px;
   height: 45px;
   border-radius: 6px;
-  border: 1px solid #DDD;
-  background: #FAFAFA;
-  color: var.$color-dark;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
   font-size: 16px;
-  font-style: normal;
   font-weight: 400;
-  line-height: 27px; /* 168.75% */
+  line-height: 27px;
   letter-spacing: 0.36px;
   padding-left: 15px;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-active);
 }

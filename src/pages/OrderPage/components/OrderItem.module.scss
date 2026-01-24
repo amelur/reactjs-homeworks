@@ -6,9 +6,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 40px 27px;
+
   border-radius: 6px;
-  border: 1px solid rgba(53, 184, 190, 0.15);
-  background: #FFF;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
 }
 
 .imgItem {
@@ -24,18 +25,16 @@
 }
 
 .title {
-  color: var.$color-dark;
+  color: var(--color-text-primary);
   font-size: 18px;
-  font-style: normal;
   font-weight: 400;
-  line-height: 20px; /* 111.111% */
+  line-height: 20px;
   letter-spacing: 0.6px;
 }
 
 .total {
-  color: var.$color-active;
+  color: var(--color-active);
   font-size: 16px;
-  font-style: normal;
   font-weight: 400;
-  line-height: 20px; /* 133.333% */
+  line-height: 20px;
 }

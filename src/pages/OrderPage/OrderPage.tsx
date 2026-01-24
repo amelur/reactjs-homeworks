@@ -5,15 +5,12 @@ import OrderItem from "./components/OrderItem";
 import InputField from "../../components/InputField";
 import Button from "../../components/Button";
 import {clearCart} from "../../store/cartSlice";
-import {getMealsData} from "../../store/mealsSlice";
+import {getMealsData, type Meal} from "../../store/mealsSlice";
 
-type DetailedCartItem = {
+export type DetailedCartItem = {
     id: string
     quantity: number
-    meal: string
-    price: number
-    img: string
-}
+} & Pick<Meal, "meal" | "price" | "img">
 
 const OrderPage = () => {
     const dispatch = useAppDispatch();

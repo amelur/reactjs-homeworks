@@ -7,16 +7,14 @@
   align-items: center;
   gap: 53px;
   padding: 155px 0 254px;
-  background-image: url('./menuBG.svg');
   background-size: cover;
 }
 
 .title {
-  color: var.$color-active;
+  color: var(--color-active);
   text-align: center;
   font-size: 50px;
-  font-style: normal;
   font-weight: 400;
-  line-height: 55px; /* 110% */
+  line-height: 55px;
   letter-spacing: 1.65px;
 }
